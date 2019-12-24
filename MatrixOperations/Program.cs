@@ -6,21 +6,38 @@ using System.Threading.Tasks;
 
 namespace MatrixOperations
 {
+    /// <summary>
+    /// Класс содержит матрицу и методы для сложения, умножения и вывода на экран
+    /// </summary>
     class Matrix
     {
+        /// <summary>
+        /// Матрица, хранимая как двумерный массив
+        /// </summary>
         private decimal[,] _matrix;
-
+        /// <summary>
+        /// количество строк в матрицк
+        /// </summary>
         public int Rows { get; private set; }
-
+        /// <summary>
+        /// количество столбцов матрицы
+        /// </summary>
         public int Cols { get; private set; }
-
+        /// <summary>
+        /// Конструктор для создания пустой матрицы
+        /// </summary>
+        /// <param name="rows">количество строк</param>
+        /// <param name="cols">количество столбцов</param>
         public Matrix(int rows, int cols)
         {
             this._matrix = new decimal[rows, cols];
             this.Rows = rows;
             this.Cols = cols;
         }
-
+        /// <summary>
+        /// Конструктор для создания матрицы из двумерного массива
+        /// </summary>
+        /// <param name="matrix">двумерный массив с матрицей</param>
         public Matrix(decimal[,] matrix)
         {
             this._matrix = matrix;
@@ -29,12 +46,17 @@ namespace MatrixOperations
 
             this.Cols = this._matrix.Length / this.Rows;
         }
-
+        /// <summary>
+        /// Метод, возвращающий копию матрицы
+        /// </summary>
+        /// <returns>Копия матрицы</returns>
         public decimal[,] GetMatrix()
         {
             return (decimal[,])_matrix.Clone();
         }
-
+        /// <summary>
+        /// Заполнение матрицы случайными значениями
+        /// </summary>
         public void MatrixRandomFill()
         {
             Random rnd = new Random();
@@ -47,7 +69,10 @@ namespace MatrixOperations
                 }
             }
         }
-
+        /// <summary>
+        /// Метод возвращает строку для вывода на экран
+        /// </summary>
+        /// <returns>строка содрежащая значения матрицы</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -63,7 +88,12 @@ namespace MatrixOperations
 
             return sb.ToString();
         }
-
+        /// <summary>
+        /// перегруженный оператор "+" для матричного сложения
+        /// </summary>
+        /// <param name="m1">Первая матрица</param>
+        /// <param name="m2">Вторая матрица</param>
+        /// <returns></returns>
         public static Matrix operator +(Matrix m1, Matrix m2)
         {
             if (m1.Rows != m2.Rows || m1.Cols != m2.Cols)
@@ -83,7 +113,12 @@ namespace MatrixOperations
 
             return new Matrix(resultMatrix);
         }
-
+        /// <summary>
+        /// Перегруженный оператор "*" для умножения матриц
+        /// </summary>
+        /// <param name="m1">Первая матрица</param>
+        /// <param name="m2">Втроая матрица</param>
+        /// <returns></returns>
         public static Matrix operator *(Matrix m1, Matrix m2)
         {
             decimal[,] resultMatrix = new decimal[m1.Rows, m2.Cols];
